@@ -1,4 +1,4 @@
-First project with next.js with use PokeminAPI
+First project with next.js using PokeminAPI
 
 ## Technologies
 
