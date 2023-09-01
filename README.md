@@ -4,6 +4,7 @@ First project with next.js using PokeminAPI
 
 -   Next.js v13
 -   NextUI v2.1.7
+-   ChakraUi v2.8
 -   Tailwind v3
 -   TypeScript
 -   React v18
