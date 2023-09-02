@@ -1,7 +1,6 @@
-import { colors } from "@nextui-org/react";
-import Image from "next/image";
+import { Text } from "@chakra-ui/react";
+import { colors, Link, Spacer, Image } from "@nextui-org/react";
 import NextLink from "next/link";
-import { Link } from "@nextui-org/react";
 
 export const Navbar = () => {
   const randNumber: number = Math.floor(Math.random() * (151 - 0 + 1) + 0);
@@ -17,25 +16,22 @@ export const Navbar = () => {
         backgroundColor: colors?.zinc[900],
       }}
     >
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <Image
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${randNumber}.png`}
-          alt="Pokemon icon"
-          height={70}
-          width={70}
-        />
-        <NextLink href="/">
-          <Link>
-            <h1>
-              <span className="text-2xl">P</span>
-              <span className="text-xl">okémon</span>
-            </h1>
-          </Link>
-        </NextLink>
-      </div>
+      <Image
+        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${randNumber}.png`}
+        alt="Pokemon icon"
+        height={70}
+        width={70}
+      />
+      <NextLink href="/">
+        <Link>
+          <Text>P</Text>
+          <Text>okémon</Text>
+        </Link>
+      </NextLink>
+      <Spacer style={{ flex: 1 }} />
       <NextLink href="/favorites">
         <Link>
-          <h3 className="text-xl">Favorites</h3>
+          <Text>Favorites</Text>
         </Link>
       </NextLink>
     </div>
