@@ -11,18 +11,22 @@ export const PokemonCard: FC<Props> = ({ pokemon }) => {
   const router = useRouter();
 
   const onClick = () => {
-    router.push(`/pokemon/${pokemon.id}`);
+    router.push(`/name/${pokemon.name}`);
   };
 
   return (
     <div className="" key={pokemon.id}>
-      <Card isHoverable isFooterBlurred radius="lg" className="border-none">
+      <Card
+        isHoverable
+        isFooterBlurred
+        radius="lg"
+        className="border-none"
+        style={{ alignItems: "center" }}
+      >
         <Image
           alt="Pokemon images"
-          className="object-cover"
-          height={140}
+          className="object-cover image"
           src={pokemon.image}
-          width="100%"
         />
         <CardFooter
           className="
