@@ -3,7 +3,12 @@
 @tailwind utilities;
 
 @layer base {
-    body {
-        @apply dark:bg-gray-800 bg-white;
-    }
+  body {
+    @apply dark:bg-gray-800 bg-white;
+  }
+}
+
+.image {
+  width: 100%;
+  height: 140px;
 }
