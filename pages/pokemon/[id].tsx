@@ -1,18 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { GetStaticProps, GetStaticPaths, NextPage } from "next";
 import { Card, CardBody, CardHeader, Image, Button } from "@nextui-org/react";
 import { Container, Grid, GridItem, Text } from "@chakra-ui/react";
+import confetti from "canvas-confetti";
 import { Layout } from "@/components/layouts";
 import { pokeApi } from "@/api";
 import { IPokemon } from "@/interfaces";
+import { getPokemonInfo, localFavorites } from "@/utils";
 
 interface Props {
   pokemon: IPokemon;
 }
 
 export const PokemonPage: NextPage<Props> = ({ pokemon }) => {
+  const [isInFavorites, setIsInFavorites] = useState(
+    localFavorites.existInFavorites(pokemon.id)
+  );
+  const onToggleFavorite = () => {
+    localFavorites.toogleFavorite(pokemon.id);
+    setIsInFavorites(!isInFavorites);
+    if (isInFavorites) return;
+    confetti({
+      zIndex: 999,
+      particleCount: 100,
+      shapes: ["star"],
+      colors: ["FFE400", "FFBD00", "E89400", "FFCA6C", "FDFFB8"],
+      spread: 160,
+      angle: -100,
+      origin: {
+        x: 1,
+        y: 0,
+      },
+    });
+  };
   return (
-    <Layout>
+    <Layout title={pokemon.name}>
       <Grid templateColumns="repeat(4, 1fr)" gap={6}>
         <GridItem colSpan={1}>
           <Card isHoverable style={{ padding: "30px" }}>
@@ -43,8 +65,9 @@ export const PokemonPage: NextPage<Props> = ({ pokemon }) => {
               <Button
                 radius="full"
                 className="bg-gradient-to-tr from-purple-500 to-blue-500 text-white shadow-lg"
+                onClick={onToggleFavorite}
               >
-                Favorite
+                {isInFavorites ? "Favorites" : "Add favorite"}
               </Button>
             </CardHeader>
             <CardBody>
@@ -97,10 +120,9 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params as { id: string };
-  const { data } = await pokeApi.get<IPokemon>(`/pokemon/${id}`);
   return {
     props: {
-      pokemon: data,
+      pokemon: await getPokemonInfo(id),
     },
   };
 };
